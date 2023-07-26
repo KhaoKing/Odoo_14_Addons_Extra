@@ -9,9 +9,9 @@
         <tree string='Movie List - 2023'>
           <field name="name_movie"/>
           <field name="year_movie"/>
-          <field name="rating_of_the_movie"/>
+          <field name="rating_movie"/>
           <field name="duration"/>
-          <field name="genere"/>
+          <field name="genre"/>
         </tree>
       </field>
     </record>
@@ -22,15 +22,20 @@
       <field name="model">movie.movie_module</field>
       <field name="arch" type="xml">
         <form string="Movies List - 2023">
-          <group>
+          <sheet>
             <group>
-            <field name="name_movie"/>
-            <field name="year_movie"/>
-            <field name="rating_of_the_movie"/>
-            <field name="duration"/>
-            <field name="genere"/>
+              <group>
+              <field name="name_movie"/>
+              <field name="year_movie"/>
+              <field name="rating_movie"/>
+              <field name="duration"/>
+              <field name="genre"/>
+              </group>
+              <group>
+              <field name="image" widget="image" class="oe_avatar"/>
+              </group>
             </group>
-          </group>
+          </sheet>  
         </form>
       </field>
     </record>
@@ -41,32 +46,42 @@
     <record model="ir.actions.act_window" id="movie_module_window">
       <field name="name">Most View in 2023</field>
       <field name="res_model">movie.movie_module</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,kanban,form</field>
     </record>
 
+    <!-- View Kanban -->
+    <record id="view_movie_kanban" model="ir.ui.view">
+            <field name="name">view_movie_kanban</field>
+            <field name="model">movie.movie_module</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="id"/>
 
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="first_module.action_server">
-      <field name="name">first_module server</field>
-      <field name="model_id" ref="model_first_module_first_module"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <img t-att-src="kanban_image('movie.movie_module', 'image', record.id.raw_value)" alt="image"/>
+                                </div>
+                                <div class="oe_kanban_details">
+                                <ul>
+                                  <li><field name="name_movie" string="Name"/></li>
+                                  <li><field name="year_movie"/></li>
+                                  <li><field name="duration" /></li>
+                                  <li><field name="genre"/></li>
+                                </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
 
     <!-- Top menu item -->
-
     <menuitem name="Movie List (2023)" id="movie_menu_root"/>
 
     <!-- menu categories -->
-
     <menuitem name="Most View" id="movie_list_menu_1" parent="movie_menu_root" action="movie_module_window"/>
     <!-- <menuitem name="Menu 2" id="first_module.menu_2" parent="first_module.menu_root"/> -->
 
@@ -77,5 +92,6 @@
     <menuitem name="Server to list" id="first_module" parent="first_module.menu_2"
               action="first_module.action_server"/>
 -->
+  
   </data>
 </odoo>
