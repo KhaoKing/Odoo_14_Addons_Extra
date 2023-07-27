@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields
-
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 class movie_module_class(models.Model):
     _name = 'movie.movie_module'
@@ -15,18 +15,16 @@ class movie_module_class(models.Model):
     5 = Excellent""")
     duration = fields.Integer(string='Duration', help="Say how long the movie is")
     image = fields.Binary(string="Imagen", help="This field is for upload an image in format PNG")
-
-    movie_selec = [
+    genre = fields.Selection([
         ('Opc1','Action'),
         ('Opc2','Adventures'),
         ('Opc3','Thriller'),
-        ('Opc4','Animation')
-    ]
-    genre = fields.Selection(movie_selec, string='Film Genre', required=True)
-
-
-
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+        ('Opc4','Animation')], string='Film Genre',required=True)
+    
+    @api.constrains('name_movie')
+    def _validation_name_movie(self):
+        for record in self:
+            if self.env['movie.movie_module'].search([
+                    ('name_movie','=', record.name_movie)
+                ]):
+                    raise ValidationError(("This moive is alredy loaded! Please, register another one"))
