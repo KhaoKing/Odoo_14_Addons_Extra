@@ -1,0 +1,59 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="module_odoo_pass.list">
+      <field name="name">module_odoo_pass list</field>
+      <field name="model">module_odoo_pass.module_odoo_pass</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="odoo_test_action">
+      <field name="name">Test Odoo 14</field>
+      <field name="res_model">module_odoo.module_odoo_pass</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    
+
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="module_odoo_pass.action_server">
+      <field name="name">module_odoo_pass server</field>
+      <field name="model_id" ref="model_module_odoo_pass_module_odoo_pass"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+
+    <menuitem name="Module Odoo Pass" id="module_odoo_pass_menu_root"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Module Odoo 14" id="module_odoo_pass_menu_odoo14" parent="module_odoo_pass_menu_root" action='odoo_test_action'/>
+    <!-- <menuitem name="Menu 2" id="module_odoo_pass.menu_2" parent="module_odoo_pass.menu_root"/> -->
+
+    <!-- actions -->
+
+<!-- <menuitem name="Test Odoo14" id="menu_odoo14.list" parent="module_odoo_pass.menu_1"
+          action="module_odoo_pass.action_window"/> -->
+
+  </data>
+</odoo>

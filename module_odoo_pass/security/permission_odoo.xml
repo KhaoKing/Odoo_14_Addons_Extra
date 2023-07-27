@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record id="odoo_group_permission_admin" model="res.groups">
+            <field name="name">perm_odoo</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+    </data>
+</odoo>
