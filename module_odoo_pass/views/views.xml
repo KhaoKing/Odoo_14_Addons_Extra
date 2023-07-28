@@ -1,27 +1,95 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="module_odoo_pass.list">
-      <field name="name">module_odoo_pass list</field>
-      <field name="model">module_odoo_pass.module_odoo_pass</field>
-      <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
-      </field>
-    </record>
--->
+        <!-- view tree -->
+        <record model="ir.ui.view" id="module_odoo_pass.list">
+          <field name="name">real_estate_tree</field>
+          <field name="model">module_odoo.module_odoo_pass</field>
+          <field name="arch" type="xml">
+            <tree>
+              <field name="name"/>
+              <field name="postcode"/>
+              <field name="bedrooms"/>
+              <field name="living_area"/>
+              <field name="expected_price"/>
+              <field name="selling_price"/>
+              <field name="date_availability"/>
+            </tree>
+          </field>
+        </record>
+
+        <!-- view form -->
+        <record id="real_estate_view_form" model="ir.ui.view">
+          <field name="name">real_estate_view_form</field>
+          <field name="model">module_odoo.module_odoo_pass</field>
+          <field name="arch" type="xml">
+            <form>
+              <sheet>
+                    <group>
+                    <field name="name" style="font-size: 36px; font: solid"/>
+                      <group>
+                        <field name="postcode"/>
+                        <field name="date_availability"/>
+                      </group>
+                      <group>
+                        <field name="expected_price"/>
+                        <field name="selling_price"/>  
+                      </group>
+                    </group>
+                    <notebook>
+                      <page string="Description" style="border-top: 1px solid; border-color: #001000; border-radius: 3px;">
+                        <group>
+                          <group>
+                            <field name="description"/>
+                            <field name="bedrooms"/>
+                            <field name="living_area"/>
+                            <field name="facades"/>
+                            <field name="garage"/>
+                            <field name="garden"/>
+                            <field name="garden_area"/>
+                            <field name="garden_orentation"/>
+                          </group>
+                        </group>
+                      </page>
+                    </notebook>
+              </sheet>
+            </form>
+          </field>
+        </record>
+
+        <record id="model_name_view_search" model="ir.ui.view">
+          <field name="name">real_estate_view_search</field>
+          <field name="model">module_odoo.module_odoo_pass</field>
+          <field name="arch" type="xml">
+            <search string="Real Estate Seach">
+                  <field name="name" filter_domain="['|', ('name','ilike', self)" string="Name"/>
+                  <field name="postcode" filter_domain="['|',('postcode','ilike', self)]" string="Postcode"/>
+                  <field name="bedrooms" filter_domain="['|',('bedrooms','ilike', self)]" string="Bedrooms"/>
+                  <field name="living_area" filter_domain="['|',('living_area','ilike', self)]" string="Living Area"/>
+                  <field name="expected_price" filter_domain="['|',('expected_price','ilike', self)]" string="Expected Price"/>
+                  <field name="selling_price" filter_domain="['|',('selling_price','ilike', self)]" string="Selling Price"/>
+                  <field name="date_availability" filter_domain="['|',('date_availability','ilike', self)]" string="Date Availability"/>
+                  <separator/>
+                  <filter string="Date Less Than Today" name="Date_younger"
+                        domain="[('date_availability', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                  <filter string="Date Older Than Today" name="Date_Older"
+                        domain="[('date_availability', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                  <group string="Group By">
+                      <filter string="Garden Orientation" name="garden_orentation" context="{'group_by': 'garden_orentation'}"/>
+                      <filter string="Bedrooms" name="Bedrooms_in_house" context="{'group_by': 'bedrooms'}"/>
+                      <filter string="Selling Price" name="Selling_cost_house" context="{'group_by': 'selling_price'}"/>
+                  </group>
+            </search>
+          </field>
+        </record>
+
 
     <!-- actions opening views on models -->
-
-    <record model="ir.actions.act_window" id="odoo_test_action">
-      <field name="name">Test Odoo 14</field>
-      <field name="res_model">module_odoo.module_odoo_pass</field>
-      <field name="view_mode">tree,form</field>
-    </record>
+        <record model="ir.actions.act_window" id="odoo_test_action">
+          <field name="name">Propierties</field>
+          <field name="res_model">module_odoo.module_odoo_pass</field>
+          <field name="view_mode">tree,form</field>
+        </record>
     
 
 
@@ -43,14 +111,16 @@
 
     <!-- Top menu item -->
 
-    <menuitem name="Module Odoo Pass" id="module_odoo_pass_menu_root"/>
+        <menuitem name="Module Odoo Pass" id="module_odoo_pass_menu_root"/>
 
-    <!-- menu categories -->
+        <!-- menu categories -->
 
-    <menuitem name="Module Odoo 14" id="module_odoo_pass_menu_odoo14" parent="module_odoo_pass_menu_root" action='odoo_test_action'/>
-    <!-- <menuitem name="Menu 2" id="module_odoo_pass.menu_2" parent="module_odoo_pass.menu_root"/> -->
-
-    <!-- actions -->
+        <menuitem name="Real Estate" id="real_estate_menu_odoo14">  
+          <menuitem id="real_estate_menu1" name="Advertisements">
+            <menuitem id="real_estate_menu2" name="Propierties" action="odoo_test_action"/>
+          </menuitem>
+        </menuitem>
+        <!-- actions -->
 
 <!-- <menuitem name="Test Odoo14" id="menu_odoo14.list" parent="module_odoo_pass.menu_1"
           action="module_odoo_pass.action_window"/> -->

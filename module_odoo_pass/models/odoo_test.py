@@ -1,27 +1,35 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields
+from datetime import datetime 
+from dateutil.relativedelta import relativedelta
 
 
 class module_odoo_pass(models.Model):
     _name = 'module_odoo.module_odoo_pass'
     _description = 'This is my first odoo community module, learning how it works'
 
-    name = fields.Char(required='True')
-    description = fields.Text()
-    postcode = fields.Char()
-    date_availability = fields.Date(copy="False", default=fields.Date.today())
-    expected_price = fields.Float(required='True')
-    selling_price  = fields.Float(readonly='True', copy="False")
-    bedrooms  = fields.Integer(default=2)
-    living_area  = fields.Integer()
-    facades  = fields.Integer()
-    garage  = fields.Boolean()
-    garden  = fields.Boolean()
-    garden_area  = fields.Integer()
+    name = fields.Char(string="Title", required=True)
+    description = fields.Text(string="Description")
+    postcode = fields.Char(string="Postcode")
+    date_availability = fields.Date(string="Available From" ,copy=False , default=lambda self: (datetime.now() + relativedelta(months=3)))
+    expected_price = fields.Float(string="Expected Price",required=True)
+    selling_price  = fields.Float(string="Selling Price",readonly=True, copy=False)
+    bedrooms  = fields.Integer(stirng="Bedrooms", default=2)
+    living_area  = fields.Integer(string="Living Area (sqm)")
+    facades  = fields.Integer(string="Facades")
+    garage  = fields.Boolean(string="Garage")
+    garden  = fields.Boolean(string="Garden")
+    garden_area  = fields.Integer(string="Garden Area (sqm)")
     garden_orentation  = fields.Selection([('North', 'North'), 
                                             ('South', 'South'),
                                             ('West', 'West'),
-                                            ('East', 'East')])
+                                            ('East', 'East')], string="Garden Orientation")
+    active = fields.Boolean(default=True)
+    state = fields.Selection([('new','New'),
+                            ('offer received','Offer Received'),
+                            ('offer acepted','Offer Acepted'),
+                            ('sold','Sold'),
+                            ('canceled','Canceled')], required=True, copy=False, default="new")
     
 #
 #     @api.depends('value')
