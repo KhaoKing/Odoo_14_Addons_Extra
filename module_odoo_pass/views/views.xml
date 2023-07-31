@@ -14,6 +14,8 @@
               <field name="expected_price"/>
               <field name="selling_price"/>
               <field name="date_availability"/>
+              <field name="type_property"/>
+              <field name="tag_property"/>
             </tree>
           </field>
         </record>
@@ -25,8 +27,9 @@
           <field name="arch" type="xml">
             <form>
               <sheet>
+                <field name="name" style="font-size: 36px; font: solid"/>
+                <field name="tag_property" widget="many2many_tags"/>
                     <group>
-                    <field name="name" style="font-size: 36px; font: solid"/>
                       <group>
                         <field name="postcode"/>
                         <field name="date_availability"/>
@@ -47,7 +50,13 @@
                             <field name="garage"/>
                             <field name="garden"/>
                             <field name="garden_area"/>
+                          </group>
+                          <group>
                             <field name="garden_orentation"/>
+                            <field name="active"/>
+                            <field name="state"/>
+                            <field name="type_property"/>
+                            
                           </group>
                         </group>
                       </page>
@@ -67,63 +76,16 @@
                   <field name="bedrooms" filter_domain="['|',('bedrooms','ilike', self)]" string="Bedrooms"/>
                   <field name="living_area" filter_domain="['|',('living_area','ilike', self)]" string="Living Area"/>
                   <field name="expected_price" filter_domain="['|',('expected_price','ilike', self)]" string="Expected Price"/>
-                  <field name="selling_price" filter_domain="['|',('selling_price','ilike', self)]" string="Selling Price"/>
-                  <field name="date_availability" filter_domain="['|',('date_availability','ilike', self)]" string="Date Availability"/>
+                  <field name="facades" filter_domain="['|',('facades','ilike', self)]" string="Selling Price"/>
                   <separator/>
-                  <filter string="Date Less Than Today" name="Date_younger"
-                        domain="[('date_availability', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
-                  <filter string="Date Older Than Today" name="Date_Older"
-                        domain="[('date_availability', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                  <filter name="state" string="New" domain="[('state', '=', 'new')]"/>
+                  <filter name="state" string="Offer Received" domain="[('state', '=', 'offer received')]"/>
                   <group string="Group By">
-                      <filter string="Garden Orientation" name="garden_orentation" context="{'group_by': 'garden_orentation'}"/>
-                      <filter string="Bedrooms" name="Bedrooms_in_house" context="{'group_by': 'bedrooms'}"/>
-                      <filter string="Selling Price" name="Selling_cost_house" context="{'group_by': 'selling_price'}"/>
+                    <filter string="Postcode" name="postcode" context="{'group_by': 'postcode'}"/>
                   </group>
             </search>
           </field>
         </record>
-
-
-    <!-- actions opening views on models -->
-        <record model="ir.actions.act_window" id="odoo_test_action">
-          <field name="name">Propierties</field>
-          <field name="res_model">module_odoo.module_odoo_pass</field>
-          <field name="view_mode">tree,form</field>
-        </record>
-    
-
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="module_odoo_pass.action_server">
-      <field name="name">module_odoo_pass server</field>
-      <field name="model_id" ref="model_module_odoo_pass_module_odoo_pass"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
-
-    <!-- Top menu item -->
-
-        <menuitem name="Module Odoo Pass" id="module_odoo_pass_menu_root"/>
-
-        <!-- menu categories -->
-
-        <menuitem name="Real Estate" id="real_estate_menu_odoo14">  
-          <menuitem id="real_estate_menu1" name="Advertisements">
-            <menuitem id="real_estate_menu2" name="Propierties" action="odoo_test_action"/>
-          </menuitem>
-        </menuitem>
-        <!-- actions -->
-
-<!-- <menuitem name="Test Odoo14" id="menu_odoo14.list" parent="module_odoo_pass.menu_1"
-          action="module_odoo_pass.action_window"/> -->
 
   </data>
 </odoo>

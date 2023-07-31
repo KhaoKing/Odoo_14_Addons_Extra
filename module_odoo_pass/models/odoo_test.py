@@ -14,7 +14,7 @@ class module_odoo_pass(models.Model):
     date_availability = fields.Date(string="Available From" ,copy=False , default=lambda self: (datetime.now() + relativedelta(months=3)))
     expected_price = fields.Float(string="Expected Price",required=True)
     selling_price  = fields.Float(string="Selling Price",readonly=True, copy=False)
-    bedrooms  = fields.Integer(stirng="Bedrooms", default=2)
+    bedrooms  = fields.Integer(string="Bedrooms", default=2)
     living_area  = fields.Integer(string="Living Area (sqm)")
     facades  = fields.Integer(string="Facades")
     garage  = fields.Boolean(string="Garage")
@@ -30,6 +30,9 @@ class module_odoo_pass(models.Model):
                             ('offer acepted','Offer Acepted'),
                             ('sold','Sold'),
                             ('canceled','Canceled')], required=True, copy=False, default="new")
+    type_property = fields.Many2one('type_property.real_state', string='Property Type')
+    tag_property = fields.Many2many('tag_property.state', 'property_id')
+    
     
 #
 #     @api.depends('value')

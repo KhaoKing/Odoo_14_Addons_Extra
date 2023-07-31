@@ -21,10 +21,8 @@ class movie_module_class(models.Model):
         ('Opc3','Thriller'),
         ('Opc4','Animation')], string='Film Genre',required=True)
     
-    @api.constrains('name_movie')
+    @api.constrains("name_movie")
     def _validation_name_movie(self):
         for record in self:
-            if self.env['movie.movie_module'].search([
-                    ('name_movie','=', record.name_movie)
-                ]):
-                    raise ValidationError(("This moive is alredy loaded! Please, register another one"))
+            if self.search_count([('name_movie','=',record.name_movie)]) > 1:
+                raise ValidationError(("This movie is alredy loaded! Please, register another one"))

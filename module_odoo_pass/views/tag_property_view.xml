@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <!-- <record id="tag_property_view_form" model="ir.ui.view">
+            <field name="name">tag_property_view_form</field>
+            <field name="model">tag_property.state</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="model_name_view_tree" model="ir.ui.view">
+            <field name="name">model_name.view.tree</field>
+            <field name="model">model_name</field>
+            <field name="arch" type="xml">
+                <tree string="">
+                    
+                </tree>
+            </field>
+        </record>
+        
+    -->
+    </data>
+</odoo>

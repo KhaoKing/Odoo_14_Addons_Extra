@@ -25,8 +25,9 @@
     'data': [
         'security/permission_odoo.xml',
         'security/ir.model.access.csv',
+        'views/menu_views.xml',
         'views/views.xml',
-        # 'views/templates.xml',
+        'views/type_property_views.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

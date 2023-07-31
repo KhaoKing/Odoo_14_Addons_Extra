@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+    <record id="odoo_type_action" model="ir.actions.act_window">
+            <field name="name">Property Type</field>
+            <field name="res_model">type_property.real_state</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    <record model="ir.actions.act_window" id="odoo_test_action">
+            <field name="name">Properties</field>
+            <field name="res_model">module_odoo.module_odoo_pass</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+
+    <record model="ir.actions.act_window" id="odoo_tags_action">
+            <field name="name">Property Type</field>
+            <field name="res_model">module_odoo.module_odoo_pass</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+    
+    <menuitem id="state_menu_root" name="Real State">
+        
+            <menuitem id="real_estate_menu1" name="Advertisements" sequence="2">
+                <menuitem id="real_estate_menu2" name="Properties" action="odoo_test_action"/>
+            </menuitem>
+
+            <menuitem id="real_estate_menu3" name="Settings" sequence="4">
+                <menuitem id="real_estate_menu4" name="Property Types" action="odoo_type_action"/>
+                <menuitem id="real_estate_menu5" name="Property Tags" action="odoo_tags_action"/>
+            </menuitem>
+        
+        
+    </menuitem>
+
+    </data>
+</odoo>
