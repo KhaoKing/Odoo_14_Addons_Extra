@@ -15,7 +15,6 @@
               <field name="selling_price"/>
               <field name="date_availability"/>
               <field name="type_property"/>
-              <field name="tag_property"/>
             </tree>
           </field>
         </record>
@@ -28,39 +27,58 @@
             <form>
               <sheet>
                 <field name="name" style="font-size: 36px; font: solid"/>
+                <separator/>
                 <field name="tag_property" widget="many2many_tags"/>
+                  <group>
                     <group>
-                      <group>
-                        <field name="postcode"/>
-                        <field name="date_availability"/>
-                      </group>
-                      <group>
-                        <field name="expected_price"/>
-                        <field name="selling_price"/>  
-                      </group>
+                      <field name="type_property"/>
+                      <field name="postcode"/>
+                      <field name="date_availability"/>
                     </group>
-                    <notebook>
-                      <page string="Description" style="border-top: 1px solid; border-color: #001000; border-radius: 3px;">
+                    <group>
+                      <field name="expected_price"/>
+                      <field name="best_price" />
+                      <field name="selling_price"/>  
+                    </group>
+                  </group>
+                <notebook>
+                    <page string="Description" style="border-top: 1px solid; border-color: #001000; border-radius: 3px;">
+                      <group string="General Information">
                         <group>
-                          <group>
-                            <field name="description"/>
-                            <field name="bedrooms"/>
-                            <field name="living_area"/>
-                            <field name="facades"/>
-                            <field name="garage"/>
-                            <field name="garden"/>
-                            <field name="garden_area"/>
-                          </group>
-                          <group>
-                            <field name="garden_orentation"/>
-                            <field name="active"/>
-                            <field name="state"/>
-                            <field name="type_property"/>
-                            
-                          </group>
+                          <field name="description"/>
+                          <field name="bedrooms"/>
+                          <field name="living_area"/>
+                          <field name="facades"/>
+                          <field name="garage"/>
+                          <field name="garden"/>
+                          <field name="garden_area"/>
+                          <field name="total_area"/>
                         </group>
-                      </page>
-                    </notebook>
+                        <group>
+                          <field name="garden_orentation"/>
+                          <field name="active"/>
+                          <field name="state"/>
+                        </group>
+                      </group>
+                    </page>
+                    <page string="Other Info" style="border-top: 1px solid; border-color: #001000; border-radius: 3px;">
+                      <group string="Sales Information">
+                        <field name="salesman"/>
+                        <field name="buyer"/>  
+                      </group>
+                    </page>
+                    <page string="Offers" style="border-top: 1px solid; border-color: #001000; border-radius: 3px;">
+                      <field name="offer_ids">
+                            <tree>
+                              <field name="price" />
+                              <field name="buyer_user" />
+                              <field name="status"/>
+                              <field name="validity" />
+                              <field name="date_deadline" />
+                            </tree>
+                      </field>
+                    </page>
+                </notebook>
               </sheet>
             </form>
           </field>

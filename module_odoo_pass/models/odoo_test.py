@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from odoo import models, fields
+from odoo import models, fields, api
 from datetime import datetime 
 from dateutil.relativedelta import relativedelta
 
@@ -31,11 +31,23 @@ class module_odoo_pass(models.Model):
                             ('sold','Sold'),
                             ('canceled','Canceled')], required=True, copy=False, default="new")
     type_property = fields.Many2one('type_property.real_state', string='Property Type')
-    tag_property = fields.Many2many('tag_property.state', 'property_id')
+    tag_property = fields.Many2many('tag_property.state', 'tag_id')
+    salesman = fields.Many2one('res.users',string='Seller', index=True, tracking=True, default=lambda self: self.env.user)
+    buyer = fields.Many2one('res.users',string='Buyer', copy=False)
+    offer_ids = fields.One2many('offer_property.offer', 'property_id', string='Offers Ids')
+    total_area = fields.Float(compute="_sum_area")
+    best_price = fields.Float(string="Best Offer", compute="_better_offer")
     
+
+    @api.depends("total_area")
+    def _sum_area(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+
+    @api.depends("offer_ids.price")
+    def _better_offer(self):
+        for record in self:
+            better_offer = record.offer_ids.mapped('price')
+            record.best_price = max(better_offer) if better_offer else 0.0
+
     
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100

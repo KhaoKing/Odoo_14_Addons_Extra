@@ -13,8 +13,8 @@
             </record>
 
     <record model="ir.actions.act_window" id="odoo_tags_action">
-            <field name="name">Property Type</field>
-            <field name="res_model">module_odoo.module_odoo_pass</field>
+            <field name="name">Property Tag</field>
+            <field name="res_model">tag_property.state</field>
             <field name="view_mode">tree,form</field>
             </record>
     
