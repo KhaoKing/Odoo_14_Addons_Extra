@@ -26,70 +26,74 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                    <button name="button_change_sold" string="Sold" type="object" class="oe_stat_button"/>
-                    <button name="button_change_canceled" string="Cancel" type="object" class="oe_stat_button"/>
+                        <button name="button_change_sold" string="Sold" type="object"/>
+                        <button name="button_change_canceled" string="Cancel" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_acepted,sold"/>
                     </header>
-                        <sheet>
-                            <field name="name" style="font-size: 36px; font: solid"/>
-                                <separator/>
-                            <field name="tag_property" widget="many2many_tags"/>
-                                <group>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="name"/>
+                                <br/>
+                                <field name="tag_property" widget="many2many_tags"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="type_property"/>
+                                <field name="postcode"/>
+                                <field name="date_availability"/>
+                            </group>
+                            <group>
+                                <field name="expected_price"/>
+                                <field name="best_price" />
+                                <field name="selling_price"/>  
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description">
+                                <group string="General Information">
                                     <group>
-                                        <field name="type_property"/>
-                                        <field name="postcode"/>
-                                        <field name="date_availability"/>
+                                        <field name="description"/>
+                                        <field name="bedrooms"/>
+                                        <field name="living_area"/>
+                                        <field name="facades"/>
+                                        <field name="garage"/>
+                                        <field name="garden"/>
+                                        <field name="garden_area"/>
+                                        <field name="garden_orentation"/>
+                                        <field name="total_area"/>
                                     </group>
                                     <group>
-                                        <field name="expected_price"/>
-                                        <field name="best_price" />
-                                        <field name="selling_price"/>  
+                                        <field name="active"/>
                                     </group>
                                 </group>
-                                <notebook>
-                                    <page string="Description" style="border-top: 1px solid; border-color: #001000; border-radius: 3px;">
-                                        <group string="General Information">
-                                            <group>
-                                                <field name="description"/>
-                                                <field name="bedrooms"/>
-                                                <field name="living_area"/>
-                                                <field name="facades"/>
-                                                <field name="garage"/>
-                                                <field name="garden"/>
-                                                <field name="garden_area"/>
-                                                <field name="garden_orentation"/>
-                                                <field name="total_area"/>
-                                            </group>
-                                            <group>
-                                                <field name="active"/>
-                                                <field name="state"/>
-                                            </group>
-                                        </group>
-                                    </page>
-                                    <page string="Other Info" style="border-top: 1px solid; border-color: #001000; border-radius: 3px;">
-                                        <group string="Sales Information">
-                                            <field name="salesman"/>
-                                            <field name="buyer">                        
-                                            </field>
-                                        </group>
-                                    </page>
-                                    <page string="Offers" style="border-top: 1px solid; border-color: #001000; border-radius: 3px;">
-                                        <field name="offer_ids">
-                                            <tree>
-                                                <field name="price" />
-                                                <field name="buyer_user" />
-                                                <field name="validity" />
-                                                <button name="accepted_value_state_offer" type="object" class="oe_stat_button" icon="fa-check"/>
-                                                <button name="canceled_value_state_offer" type="object" class="oe_stat_button" icon="fa-close"/>
-                                                <field name="date_deadline" />
-                                                <field name="status_offer"/>
-                                            </tree>
-                                        </field>
-                                    </page>
-                                </notebook>
-                            </sheet>
-                        </form>
-                    </field>
-                </record>
+                            </page>
+                            <page string="Other Info">
+                                <group string="Sales Information">
+                                    <field name="salesman"/>
+                                    <field name="buyer">                        
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Offers">
+                                <field name="offer_ids">
+                                    <tree>
+                                        <field name="offer_price" />
+                                        <field name="buyer_user" />
+                                        <field name="validity" />
+                                        <button name="accepted_value_state_offer" type="object" class="oe_stat_button" icon="fa-check"/>
+                                        <button name="canceled_value_state_offer" type="object" class="oe_stat_button" icon="fa-close"/>
+                                        <field name="date_deadline" />
+                                        <field name="status_offer"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
 
         <record id="model_name_view_search" model="ir.ui.view">
             <field name="name">real_estate_view_search</field>

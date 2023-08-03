@@ -29,8 +29,8 @@ class module_odoo_pass(models.Model):
     active = fields.Boolean(default=True)
     state = fields.Selection([
         ('new','New'),
-        ('offer received','Offer Received'),
-        ('offer acepted','Offer Acepted'),
+        ('offer_received','Offer Received'),
+        ('offer_acepted','Offer Acepted'),
         ('sold','Sold'),
         ('canceled','Canceled')], required=True, copy=False, default="new")
     type_property = fields.Many2one('type_property.real_state', string='Property Type')
@@ -40,21 +40,19 @@ class module_odoo_pass(models.Model):
     offer_ids = fields.One2many('offer_property.offer', 'property_id', string='Offers Ids')
     total_area = fields.Float(compute="_sum_area")
     best_price = fields.Float(string="Best Offer", compute="_better_offer")
-
+    property_ids = fields.Many2one('type_property.real_state')
     
-
     @api.depends("total_area")
     def _sum_area(self):
         for record in self:
             record.total_area = record.living_area + record.garden_area
 
-    @api.depends("offer_ids.price")
+    @api.depends("offer_ids.offer_price")
     def _better_offer(self):
         for record in self:
-            better_offer = record.offer_ids.mapped('price')
+            better_offer = record.offer_ids.mapped('offer_price')
             record.best_price = max(better_offer) if better_offer else 0.0
 
-    
     @api.onchange('garden')
     def _onchange_garden(self):
         if self.garden:
@@ -75,3 +73,7 @@ class module_odoo_pass(models.Model):
             raise UserError ('The property it was sold, for that, could be not close the offer')
         else:
             self.state = 'Canceled'
+
+    _sql_constraints = [
+        ("check_expected_price", "CHECK(expected_price > 0)", "Ops! The price you got enter, is wrong.  Please enter a price positive"),
+    ]

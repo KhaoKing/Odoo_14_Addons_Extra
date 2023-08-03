@@ -1,13 +1,12 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from datetime import timedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 class offer_property_class(models.Model):
     _name = 'offer_property.offer'
     _description = 'It is an object which will have the record of the offers'
 
-
-    price = fields.Float()
+    offer_price = fields.Float()
     status_offer = fields.Selection([
         ('accepted','Accepted'),
         ('refused','Refused'),
@@ -33,11 +32,19 @@ class offer_property_class(models.Model):
     def accepted_value_state_offer(self):
         self.status_offer = 'accepted'
         self.property_id.buyer = self.buyer_user
-        self.property_id.selling_price = self.price
+        self.property_id.selling_price = self.offer_price
 
     def canceled_value_state_offer(self):
         self.status_offer = 'refused'
         self.property_id.buyer = False
         self.property_id.selling_price = False
 
+    @api.constrains('status_offer')
+    def _ninty_porcent_value(self):
+        for record in self:
+            if record.offer_price < 0.9*record.property_id.expected_price and not record.status_offer == "refused":
+                raise ValidationError ("Ops! Your offer has been declined. Must apply with 90% of the expected price to become accepted")
 
+    _sql_constraints = [
+        ("check_offer_price", "CHECK(offer_price > 0.0)", "Ops! The price you got enter, is wrong.  Please enter a price positive"),
+    ]
