@@ -8,6 +8,7 @@ from odoo.exceptions import UserError
 class module_odoo_pass(models.Model):
     _name = 'module_odoo.module_odoo_pass'
     _description = 'This is my first odoo community module, learning how it works'
+    _order = 'id desc'
 
     name = fields.Char(string="Title", required=True)
     description = fields.Text(string="Description")
@@ -30,7 +31,7 @@ class module_odoo_pass(models.Model):
     state = fields.Selection([
         ('new','New'),
         ('offer_received','Offer Received'),
-        ('offer_acepted','Offer Acepted'),
+        ('offer_accepted','Offer Accepted'),
         ('sold','Sold'),
         ('canceled','Canceled')], required=True, copy=False, default="new")
     type_property = fields.Many2one('type_property.real_state', string='Property Type')
@@ -40,7 +41,8 @@ class module_odoo_pass(models.Model):
     offer_ids = fields.One2many('offer_property.offer', 'property_id', string='Offers Ids')
     total_area = fields.Float(compute="_sum_area")
     best_price = fields.Float(string="Best Offer", compute="_better_offer")
-    property_ids = fields.Many2one('type_property.real_state')
+    color = fields.Integer()
+    
     
     @api.depends("total_area")
     def _sum_area(self):
@@ -72,7 +74,7 @@ class module_odoo_pass(models.Model):
         if self.state == 'sold':
             raise UserError ('The property it was sold, for that, could be not close the offer')
         else:
-            self.state = 'Canceled'
+            self.state = 'canceled'
 
     _sql_constraints = [
         ("check_expected_price", "CHECK(expected_price > 0)", "Ops! The price you got enter, is wrong.  Please enter a price positive"),

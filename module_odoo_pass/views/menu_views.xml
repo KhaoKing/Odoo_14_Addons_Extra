@@ -7,16 +7,25 @@
         </record>
 
     <record model="ir.actions.act_window" id="odoo_test_action">
-            <field name="name">Properties</field>
-            <field name="res_model">module_odoo.module_odoo_pass</field>
-            <field name="view_mode">tree,form</field>
-            </record>
+        <field name="name">Properties</field>
+        <field name="res_model">module_odoo.module_odoo_pass</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
     <record model="ir.actions.act_window" id="odoo_tags_action">
             <field name="name">Property Tag</field>
             <field name="res_model">tag_property.state</field>
             <field name="view_mode">tree,form</field>
             </record>
+
+     <!-- OFFERS.REGISTRATION ACTIONS -->
+    <record id="action_offer_property_offer" model="ir.actions.act_window">
+        <field name="res_model">offer_property.offer</field>
+        <field name="name">Offers</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+        <!-- <field name="context">{'default_event_id': active_id}</field> -->
+    </record>
     
     <menuitem id="state_menu_root" name="Real State">
         

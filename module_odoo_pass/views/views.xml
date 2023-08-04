@@ -6,15 +6,16 @@
             <field name="name">real_estate_tree</field>
             <field name="model">module_odoo.module_odoo_pass</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree decoration-success="state == 'offer_accepted'" decoration-info="state == 'offer_received'" decoration-muted ="state == 'sold'">
                     <field name="name"/>
                     <field name="postcode"/>
                     <field name="bedrooms"/>
                     <field name="living_area"/>
                     <field name="expected_price"/>
                     <field name="selling_price"/>
-                    <field name="date_availability"/>
+                    <field name="date_availability" optional="hide"/>
                     <field name="type_property"/>
+                    <field name="state" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -26,21 +27,21 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="button_change_sold" string="Sold" type="object"/>
-                        <button name="button_change_canceled" string="Cancel" type="object"/>
-                        <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_acepted,sold"/>
+                        <button name="button_change_sold" string="Sold" type="object" states='new,offer_accepted'/>
+                        <button name="button_change_canceled" string="Cancel" type="object" states='new,offer_accepted,'/>
+                        <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
                             <h1>
                                 <field name="name" placeholder="name"/>
                                 <br/>
-                                <field name="tag_property" widget="many2many_tags"/>
+                                <field name="tag_property" widget="many2many_tags" options="{'color_field': 'color'}"/>
                             </h1>
                         </div>
                         <group>
                             <group>
-                                <field name="type_property"/>
+                                <field name="type_property" options="{'no_create': True, 'no_open': True}"/>
                                 <field name="postcode"/>
                                 <field name="date_availability"/>
                             </group>
@@ -58,14 +59,14 @@
                                         <field name="bedrooms"/>
                                         <field name="living_area"/>
                                         <field name="facades"/>
-                                        <field name="garage"/>
-                                        <field name="garden"/>
-                                        <field name="garden_area"/>
-                                        <field name="garden_orentation"/>
+                                        <field name="garage" />
+                                        <field name="garden" />
+                                        <field name="garden_area" attrs="{'invisible': [('garden', '=', False)]}"/>
+                                        <field name="garden_orentation" attrs="{'invisible': [('garden', '=', False)]}"/>
                                         <field name="total_area"/>
                                     </group>
                                     <group>
-                                        <field name="active"/>
+                                        <field name="active" />
                                     </group>
                                 </group>
                             </page>
@@ -76,16 +77,17 @@
                                     </field>
                                 </group>
                             </page>
-                            <page string="Offers">
-                                <field name="offer_ids">
-                                    <tree>
+                            <page string="Offers" >
+                                <field name="offer_ids" attrs="{'readonly': [('state', 'in', ['offer_accepted', 'canceled'])]}">
+                                    <tree decoration-success="status_offer == 'accepted'" decoration-danger="status_offer == 'refused'">
                                         <field name="offer_price" />
-                                        <field name="buyer_user" />
+                                        <field name="buyer_user"/>
                                         <field name="validity" />
-                                        <button name="accepted_value_state_offer" type="object" class="oe_stat_button" icon="fa-check"/>
-                                        <button name="canceled_value_state_offer" type="object" class="oe_stat_button" icon="fa-close"/>
+                                        <field name="property_type_id"/>
+                                        <button name="accepted_value_state_offer" type="object" class="oe_stat_button" icon="fa-check" attrs="{'invisible': ['|', ('status_offer', '=', 'accepted'), ('status_offer', '=', 'refused')]}"/>
+                                        <button name="canceled_value_state_offer" type="object" class="oe_stat_button" icon="fa-close" attrs="{'invisible': ['|', ('status_offer', '=', 'accepted'), ('status_offer', '=', 'refused')]}"/>
                                         <field name="date_deadline" />
-                                        <field name="status_offer"/>
+                                        <field name="status_offer" invisible="1"/>
                                     </tree>
                                 </field>
                             </page>
@@ -103,7 +105,7 @@
                     <field name="name" filter_domain="['|', ('name','ilike', self)" string="Name"/>
                     <field name="postcode" filter_domain="['|',('postcode','ilike', self)]" string="Postcode"/>
                     <field name="bedrooms" filter_domain="['|',('bedrooms','ilike', self)]" string="Bedrooms"/>
-                    <field name="living_area" filter_domain="['|',('living_area','ilike', self)]" string="Living Area"/>
+                    <field name="living_area" filter_domain="['|',('living_area','>=', self)]" string="Living Area"/>
                     <field name="expected_price" filter_domain="['|',('expected_price','ilike', self)]" string="Expected Price"/>
                     <field name="facades" filter_domain="['|',('facades','ilike', self)]" string="Selling Price"/>
                         <separator/>
