@@ -17,7 +17,7 @@
             <field name="name">tag_property_view_tree</field>
             <field name="model">tag_property.state</field>
             <field name="arch" type="xml">
-                <tree editable= 'bottom'>
+                <tree editable= 'top'>
                     <field name="name"/>
                 </tree>
             </field>

@@ -1,6 +1,6 @@
 from odoo import models, fields, api, _
 from datetime import timedelta
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 class offer_property_class(models.Model):
     _name = 'offer_property.offer'
@@ -11,7 +11,7 @@ class offer_property_class(models.Model):
     status_offer = fields.Selection([
         ('accepted','Accepted'),
         ('refused','Refused')], copy=False)
-    buyer_user = fields.Many2one('res.users', 'Partners', required=True)
+    buyer_user = fields.Many2one('res.partner', 'Partners', required=True)
     property_id = fields.Many2one('module_odoo.module_odoo_pass')
     validity = fields.Integer(default=7)
     date_deadline = fields.Date(compute='_sum_date_deadline', inverse="_inverse_sum_date_deadline", store=True)
@@ -49,3 +49,19 @@ class offer_property_class(models.Model):
     _sql_constraints = [
         ("check_offer_price", "CHECK(offer_price > 0.0)", "Ops! The price you got enter, is wrong.  Please enter a price positive"),
     ]
+
+    @api.model
+    def create (self, vals):
+        stats_offers = vals.get('status_offer')
+        stats_property = vals.get('property_id')
+        stats_model_real = self.env['module_odoo.module_odoo_pass'].browse(stats_property)
+        review_price_offers = self.search([("property_id",'=', stats_property)], order = "offer_price desc", limit = 1)
+        stats_price = vals.get('offer_price')
+
+        if stats_offers == False:
+            stats_model_real.state = 'offer_received'
+
+        if review_price_offers and stats_price < review_price_offers.offer_price:
+            raise UserError('Ups! Sorry, you can not introduce an offer lower than %s' %stats_model_real.best_price)       
+
+        return super(offer_property_class, self).create(vals)

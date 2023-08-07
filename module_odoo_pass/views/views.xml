@@ -23,8 +23,8 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="button_change_sold" string="Sold" type="object" states='new,offer_accepted'/>
-                        <button name="button_change_canceled" string="Cancel" type="object" states='new,offer_accepted,'/>
+                        <button name="button_change_sold" string="Sold" type="object" states='new,offer_received,offer_accepted'/>
+                        <button name="button_change_canceled" string="Cancel" type="object" states='new,offer_received,offer_accepted,'/>
                         <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
                     </header>
                     <sheet>
@@ -75,7 +75,7 @@
                             </page>
                             <page string="Offers" >
                                 <field name="offer_ids" attrs="{'readonly': [('state', 'in', ['offer_accepted', 'canceled'])]}">
-                                    <tree decoration-success="status_offer == 'accepted'" decoration-danger="status_offer == 'refused'">
+                                    <tree decoration-success="status_offer == 'accepted'" decoration-danger="status_offer == 'refused'" editable="top">
                                         <field name="offer_price"/>
                                         <field name="buyer_user"/>
                                         <field name="validity"/>

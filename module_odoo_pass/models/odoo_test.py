@@ -37,12 +37,11 @@ class module_odoo_pass(models.Model):
     type_property = fields.Many2one('type_property.real_state', string='Property Type')
     tag_property = fields.Many2many('tag_property.state', 'tag_id')
     salesman = fields.Many2one('res.users',string='Seller', index=True, tracking=True, default=lambda self: self.env.user)
-    buyer = fields.Many2one('res.users',string='Buyer', copy=False)
+    buyer = fields.Many2one('res.partner',string='Buyer', copy=False)
     offer_ids = fields.One2many('offer_property.offer', 'property_id', string='Offers Ids')
     total_area = fields.Float(compute="_sum_area")
     best_price = fields.Float(string="Best Offer", compute="_better_offer")
     color = fields.Integer()
-    
     
     @api.depends("total_area")
     def _sum_area(self):
@@ -63,6 +62,12 @@ class module_odoo_pass(models.Model):
         else:
             self.garden_area = False
             self.garden_orentation = False
+
+    # def unlink(self):
+    #     for record in self:
+    #         if record.state != 'new' and record.state != 'canceled':
+    #             raise UserError("You can only delete record if his state is 'New' or 'Canceled'.")
+    #     return super(module_odoo_pass,self).unlink()
 
     def button_change_sold(self):
         if self.state == 'canceled':

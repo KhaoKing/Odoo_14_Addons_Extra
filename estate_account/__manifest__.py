@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "module_odoo_pass",
+    'name': "estate_account",
 
     'summary': """
-        First practice module of Odoo Comunity""",
+        This works with a module Real State""",
 
     'description': """
-        Learning how Odoo works.  How is its functionality and its variety modules.
+        This module is created for making bills to Real Estate module
     """,
 
-    'author': "Leonardo Khaoim",
+    'author': "My Company",
     'website': "http://www.yourcompany.com",
 
     # Categories can be used to filter modules in modules listing
@@ -19,18 +19,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['module_odoo_pass','account'],
 
     # always loaded
     'data': [
-        'security/permission_odoo.xml',
-        'security/ir.model.access.csv',
-        'views/menu_views.xml',
-        'views/views.xml',
-        'views/type_property_views.xml',
-        'views/tag_property_view.xml',
-        'views/offers_tree_view.xml',
-        'views/inherit_user_view.xml'
+        # 'security/ir.model.access.csv',
+        # 'views/views.xml',
+        # 'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
