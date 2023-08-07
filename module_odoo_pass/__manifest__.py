@@ -28,7 +28,8 @@
         'views/menu_views.xml',
         'views/views.xml',
         'views/type_property_views.xml',
-        'views/tag_property_view.xml'
+        'views/tag_property_view.xml',
+        'views/offers_tree_view.xml'
     ],
     # only loaded in demonstration mode
     'demo': [

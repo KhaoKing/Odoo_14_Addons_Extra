@@ -1,7 +1,5 @@
 <odoo>
     <data>
-    <!-- explicit list view definition -->
-        <!-- view tree -->
         <record model="ir.ui.view" id="module_odoo_pass.list">
             <field name="name">real_estate_tree</field>
             <field name="model">module_odoo.module_odoo_pass</field>
@@ -19,8 +17,6 @@
                 </tree>
             </field>
         </record>
-
-        <!-- view form -->
         <record id="real_estate_view_form" model="ir.ui.view">
             <field name="name">real_estate_view_form</field>
             <field name="model">module_odoo.module_odoo_pass</field>
@@ -66,7 +62,7 @@
                                         <field name="total_area"/>
                                     </group>
                                     <group>
-                                        <field name="active" />
+                                        <field name="active"/>
                                     </group>
                                 </group>
                             </page>
@@ -80,13 +76,13 @@
                             <page string="Offers" >
                                 <field name="offer_ids" attrs="{'readonly': [('state', 'in', ['offer_accepted', 'canceled'])]}">
                                     <tree decoration-success="status_offer == 'accepted'" decoration-danger="status_offer == 'refused'">
-                                        <field name="offer_price" />
+                                        <field name="offer_price"/>
                                         <field name="buyer_user"/>
-                                        <field name="validity" />
+                                        <field name="validity"/>
                                         <field name="property_type_id"/>
                                         <button name="accepted_value_state_offer" type="object" class="oe_stat_button" icon="fa-check" attrs="{'invisible': ['|', ('status_offer', '=', 'accepted'), ('status_offer', '=', 'refused')]}"/>
                                         <button name="canceled_value_state_offer" type="object" class="oe_stat_button" icon="fa-close" attrs="{'invisible': ['|', ('status_offer', '=', 'accepted'), ('status_offer', '=', 'refused')]}"/>
-                                        <field name="date_deadline" />
+                                        <field name="date_deadline"/>
                                         <field name="status_offer" invisible="1"/>
                                     </tree>
                                 </field>
@@ -96,7 +92,6 @@
                 </form>
             </field>
         </record>
-
         <record id="model_name_view_search" model="ir.ui.view">
             <field name="name">real_estate_view_search</field>
             <field name="model">module_odoo.module_odoo_pass</field>
@@ -111,7 +106,6 @@
                         <separator/>
                     <filter name="state" string="New" domain="[('state', '=', 'new')]"/>
                     <filter name="state" string="Offer Received" domain="[('state', '=', 'offer received')]"/>
-
                     <group string="Group By">
                         <filter string="Postcode" name="postcode" context="{'group_by': 'postcode'}"/>
                     </group>
