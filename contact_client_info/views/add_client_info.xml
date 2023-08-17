@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="inherited_model_view_form_account" model="ir.ui.view">
+            <field name="name">inherited_model_view_form_sale</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page/group[@id='other_tab_group']" position="inside">
+                    <group string='Information Aditional Client'>
+                        <field name="street" string='Street'/>
+                        <field name="street2" string='Street 2'/>
+                        <field name="phone_number" string='Phone Number'/>
+                        <field name="country_id" string='Country ID'/>
+                        <field name="vat" string='VAT'/>
+                    </group>
+                </xpath>
+            </field>
+        </record>    
+    </data>
+</odoo> 

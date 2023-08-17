@@ -20,16 +20,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['sale_management'],
+    'depends': ['base','account'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        # 'views/views.xml',
+        'views/add_client_info.xml'
         # 'views/templates.xml',
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+    ]
 }
