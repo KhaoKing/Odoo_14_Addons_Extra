@@ -18,15 +18,12 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['l10n_latam_base'],
+    'depends': ['l10n_latam_base', 'account'],
 
     # always loaded
     'data': [
         'data/identification_type.xml',
-        'data/l10n_latam.identification.type.csv'
-    ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
+        'data/l10n_latam.identification.type.csv',
+        'views/account_move_view.xml'
     ],
 }
