@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 class AccountMove(models.Model):
     _inherit = "account.move"
@@ -12,14 +13,16 @@ class AccountMove(models.Model):
 
     @api.onchange('partner_id')
     def _onchange_contact_info(self):
-        if self.partner_id:
-            country_id_partner = self.partner_id.country_id
-            self.street = self.partner_id.street
-            self.street2 = self.partner_id.street2
-            self.phone_number = self.partner_id.phone
-            self.country_id = country_id_partner.id if country_id_partner else False
-            self._get_vat()
+        if self.partner_id.street and self.partner_id.vat == '':
+            raise UserError ('Este usuario no dispone de un RIF ni de alguna direccion, revise el contacto.')
+        else:
+            if self.partner_id:
+                self.write({
+                    'country_id': self.partner_id.country_id.id if self.partner_id.country_id else False,
+                    'street': self.partner_id.street,
+                    'street2': self.partner_id.street2,
+                    'phone_number': self.partner_id.phone,
+                    'vat': self.partner_id._get_vat(),
+                })
 
-    def _get_vat(self):
-        vat_aux = self.partner_id.l10n_latam_identification_type_id.name + self.partner_id.vat
-        self.vat = vat_aux if vat_aux != 0 else ''
+

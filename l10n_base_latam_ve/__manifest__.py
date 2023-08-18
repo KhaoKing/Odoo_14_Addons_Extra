@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['l10n_latam_base', 'account'],
+    'depends': ['l10n_latam_base', 'account', 'base'],
 
     # always loaded
     'data': [
