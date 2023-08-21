@@ -31,3 +31,9 @@ class AccountMove(models.Model):
     @api.onchange('partner_id')
     def _onchange_contact_info(self):
         self._get_info()
+
+    @api.model
+    def create (self, vals):
+        create_onchange = super(AccountMove, self).create(vals)
+        create_onchange._onchange_contact_info()
+        return create_onchange
