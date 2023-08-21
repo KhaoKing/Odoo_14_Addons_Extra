@@ -37,7 +37,7 @@ msgstr "Nombre mostrado"
 #. module: l10n_base_latam_ve
 #: model:ir.actions.server,name:l10n_base_latam_ve.action_get_information
 msgid "Get Information Contact"
-msgstr "Información Adicional del Contacto"
+msgstr "Actualizar Información del Cliente"
 
 #. module: l10n_base_latam_ve
 #: model:ir.model.fields,field_description:l10n_base_latam_ve.field_account_move__id

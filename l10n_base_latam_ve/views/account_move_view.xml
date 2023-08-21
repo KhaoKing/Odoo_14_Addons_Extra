@@ -8,6 +8,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//page/group[@id='other_tab_group']" position="inside">
                     <group string='Information Aditional Client'>
+                        <field name="partner"/>
                         <field name="street"/>
                         <field name="street2"/>
                         <field name="phone_number"/>

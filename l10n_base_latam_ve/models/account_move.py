@@ -10,6 +10,7 @@ class AccountMove(models.Model):
     phone_number = fields.Char(readonly=True, string='Phone')
     country_id = fields.Many2one('res.country',readonly=True, string='Country')
     vat = fields.Char(readonly=True, string='VAT')
+    partner = fields.Many2one('res.partner', string='Client', readonly=True)
 
     def _get_info(self):
         partner_id = self.partner_id
@@ -21,6 +22,7 @@ class AccountMove(models.Model):
             if not street or not vat:
                 raise UserError (_("Ops! This client doesn't have an Address or VAT defined. Check the information of Contact"))
             self.write({
+                'partner': partner_id,
                 'country_id': self.partner_id.country_id.id if self.partner_id.country_id else False,
                 'street': street,
                 'street2': self.partner_id.street2,
