@@ -6,14 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-21 05:23+0000\n"
-"PO-Revision-Date: 2023-08-21 05:23+0000\n"
+"POT-Creation-Date: 2023-08-22 19:32+0000\n"
+"PO-Revision-Date: 2023-08-22 19:32+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: l10n_base_latam_ve
+#: model:ir.model.fields,field_description:l10n_base_latam_ve.field_account_move__partner_name
+#: model:ir.model.fields,field_description:l10n_base_latam_ve.field_account_payment__partner_name
+msgid "Client"
+msgstr "Cliente"
 
 #. module: l10n_base_latam_ve
 #: model:ir.model,name:l10n_base_latam_ve.model_res_partner
@@ -69,14 +75,15 @@ msgid "Last Modified on"
 msgstr "Última modificación el"
 
 #. module: l10n_base_latam_ve
+#: code:addons/addons_extra/l10n_base_latam_ve/models/account_move.py:0
 #: code:addons/l10n_base_latam_ve/models/account_move.py:0
 #, python-format
 msgid ""
 "Ops! This client doesn't have an Address or VAT defined. Check the "
 "information of Contact"
 msgstr ""
-"Ops! Este cliente no tiene una Dirección o RIF definidos. Revise "
-"la información del contacto."
+"Ops! Este cliente no tiene una Dirección o RIF definidos. Revise la "
+"información del contacto."
 
 #. module: l10n_base_latam_ve
 #: model:ir.model.fields,field_description:l10n_base_latam_ve.field_account_bank_statement_line__phone_number

@@ -22,8 +22,8 @@
 
     # always loaded
     'data': [
-        'data/identification_type.xml',
-        'data/l10n_latam.identification.type.csv',
+        # 'data/identification_type.xml',
+        # 'data/l10n_latam.identification.type.csv',
         'views/account_move_view.xml'
     ],
 }
