@@ -1,8 +1,5 @@
 id,name,sequence,is_vat,description,country_id/id
-l10n_base_latam_ve.ve_j,J,10,TRUE,RIF Juridico,base.ve
-l10n_base_latam_ve.ve_g,G,20,TRUE,RIF Gubernamental,base.ve
-l10n_base_latam_ve.ve_c,C,30,TRUE,RIF Comunitario,base.ve
-l10n_base_latam_ve.ve_v,V,40,,Cedula de Identidad,base.ve
-l10n_base_latam_ve.ve_e,E,50,,Cedula Extranjera,base.ve
-l10n_base_latam_ve.ve_p,P,60,,Pasaporte,base.ve
+l10n_base_latam_ve.it_vat,RIF,10,TRUE,RIF,base.ve
+l10n_base_latam_ve.it_fid,Cedula Extranjera,50,,Cedula Extranjera,base.ve
+l10n_base_latam_ve.it_pass,Pasaporte,60,,Pasaporte,base.ve
 
