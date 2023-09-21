@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="acquirer_form_venezuela" model="ir.ui.view">
+            <field name="name">acquirer_form_venezuela</field>
+            <field name="model">payment.acquirer</field>
+            <field name="inherit_id" ref="payment.acquirer_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//group[@name="acquirer"]' position='inside'>
+                    <group attrs="{'invisible': [('provider', '!=', 'venezuela')]}">
+                        <field name="venezuela_transaction_key" password="True" attrs="{'required':[ ('provider', '=', 'venezuela'), ('state', '!=', 'disabled')]}"/>
+                        <field name="venezuela_signature_key" password="True" attrs="{'required':[ ('provider', '=', 'venezuela'), ('state', '!=', 'disabled')]}"/>
+                        <field name="venezuela_signature_url_token" attrs="{'required':[ ('provider', '=', 'venezuela'), ('state', '!=', 'disabled')]}"/>
+                        <field name="venezuela_signature_url_api" attrs="{'required':[ ('provider', '=', 'venezuela'), ('state', '!=', 'disabled')]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+</odoo>

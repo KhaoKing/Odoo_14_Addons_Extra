@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <record id="payment_bdv_biopago.payment_acquirer_venezuela" model="payment.acquirer">
+            <field name="name">Banco de Venezuela</field>
+            <field name="state">enabled</field>
+            <field name="payment_flow">form</field>
+            <field name="save_token">none</field>
+            <field name="image_128" type="base64" file="payment_bdv_biopago/static/description/icon.png"/>
+            <field name="provider">venezuela</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="view_template_id" ref="venezuela_form"/>
+            <field name="country_ids" eval="[(6,0,[ref('base.ve')])]"/>
+            <field name="payment_icon_ids" eval="[(6,0,[ref('payment.payment_icon_cc_visa')]),(6,0,[ref('payment.payment_icon_cc_mastercard')])]"/>
+            <field name="venezuela_transaction_key">72493087</field>
+            <field name="venezuela_signature_key">jInac07E</field>
+            <field name="venezuela_signature_url_token">https://biodemo.ex-cle.com:4443/Biopago2/IPG2/connect/token</field>
+            <field name="venezuela_signature_url_api">https://biodemo.ex-cle.com:4443/Biopago2/IPG2/api/Payments</field>
+        </record>
+
+    </data>
+</odoo>
