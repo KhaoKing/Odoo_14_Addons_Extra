@@ -5,10 +5,9 @@
         Seller restriction. You cannot see other clients if they are not yours.""",
     'author': "Leonardo Khaoim",
     'version': '1.0',
-    'depends': ['base', 'sale'],
+    'depends': ['base', 'sale_management'],
     'data': [
-        'security/sale_security.xml',
-        'views/views_restriction_sale.xml'
+        'security/sale_security.xml'
     ],
     'installable': True,
     'application': True,
