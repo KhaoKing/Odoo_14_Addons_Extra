@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record model="ir.model.fields" id="field_res_users_apply_salesman_rule">
+        <field name="name">Restringir partner por vendedor</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="ttype">boolean</field>
+    </record>
+
+<!-- Extender vista formulario de usuarios -->  
+    <record model="ir.ui.view" id="view_users_form_inherit">
+    <field name="name">res.users.form.inherit</field>
+    <field name="model">res.users</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//field[@name='Technical']" position="after">
+        <field name="apply_salesman_rule"/>
+        </xpath>
+    </field>
+    </record>
+</odoo>
