@@ -9,6 +9,8 @@
     'data': [
         'security/sale_security.xml'
     ],
+    'post_init_hook': 'desactivate_rule',
+    'uninstall_hook': 'uninstall_hook',
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
